@@ -1,0 +1,58 @@
+.model small
+.stack 100h
+
+.data
+	msg1 db 'Enter the 1st No:$'
+	msg2 db 0ah, 0dh, 'Enter the 2nd No:$'
+	msg3 db 0ah, 0dh, 'The Summation is:$'
+
+.code
+main proc
+
+	mov ax, @data
+	mov ds, ax	;initialize ds
+
+;display msg 1
+	mov ah, 9
+	lea dx, msg1
+	int 21h
+
+;input 1
+	mov ah, 1
+	int 21h
+
+	mov bl, al
+    
+;display msg 2	
+	mov ah, 9
+	lea dx, msg2
+	int 21h
+
+;input 2
+	mov ah, 1
+	int 21h
+
+	mov cl, al
+
+;summation
+
+	add bl, cl
+
+	sub bl, 48
+
+;display msg 3
+	mov ah, 9
+	lea dx, msg3	
+	int 21h
+
+;output
+	mov ah, 2
+	mov dl, bl	
+	int 21h
+
+;return to dos
+	mov ah, 4ch
+	int 21h
+
+main endp
+end main
